@@ -5,7 +5,9 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class VehicleService {
+  
   constructor(private _http: Http) { }
+  
   getVehicles(): Observable<Vehicle[]>{
     return this._http.get('assets/api/vehicles.json')
       .map(response => <Vehicle[]>response.json().data)
