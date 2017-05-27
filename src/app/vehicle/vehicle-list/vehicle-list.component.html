@@ -4,12 +4,6 @@
   </li>
 </ul>
 
-<ul class="messages">
-  <li *ngFor="let msg of messages">
-    {{msg}}
-  </li>
-</ul>
-
 <div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
 
 <app-vehicle *ngIf="selectedVehicle" [vehicle]="selectedVehicle"></app-vehicle>
