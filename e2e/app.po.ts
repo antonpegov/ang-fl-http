@@ -5,7 +5,7 @@ export class AngularHttpPage {
     return browser.get('/');
   }
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+  getLiText() {
+    return element(by.tagName('li')).getText();
   }
 }

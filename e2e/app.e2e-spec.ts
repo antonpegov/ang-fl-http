@@ -7,8 +7,8 @@ describe('angular-http App', () => {
     page = new AngularHttpPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display list of vehicles', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getLiText()).toEqual('Millennium Falcon');
   });
 });
