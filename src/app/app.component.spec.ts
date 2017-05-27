@@ -1,13 +1,22 @@
 import { TestBed, async } from '@angular/core/testing';
 
+import { HttpModule, Response } from "@angular/http";
+
 import { AppComponent } from './app.component';
+import { VehicleComponent } from './vehicle/vehicle/vehicle.component';
+import { VehicleListComponent } from './vehicle/vehicle-list/vehicle-list.component';
+import { Vehicle, VehicleService } from './vehicle/vehicle.service';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [HttpModule],
       declarations: [
-        AppComponent
+        AppComponent,
+        VehicleListComponent,
+        VehicleComponent
       ],
+      providers:[VehicleService]
     }).compileComponents();
   }));
 
@@ -15,6 +24,7 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
+
   }));
 
   it(`should have as title 'app works!'`, async(() => {

@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { VehicleModule } from "./vehicle/vehicle.module";
-import { VehicleComponent } from "./vehicle/vehicle/vehicle.component";
-
 import { AppComponent } from './app.component';
 
 @NgModule({

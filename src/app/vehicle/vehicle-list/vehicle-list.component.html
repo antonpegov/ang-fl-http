@@ -1,3 +1,15 @@
-<p>
-  vehicle-list works!
-</p>
+<ul>
+  <li *ngFor="let vehicle of vehicles" (click)="select(vehicle)">
+    {{vehicle.name}}
+  </li>
+</ul>
+
+<ul class="messages">
+  <li *ngFor="let msg of messages">
+    {{msg}}
+  </li>
+</ul>
+
+<div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
+
+<app-vehicle *ngIf="selectedVehicle" [vehicle]="selectedVehicle"></app-vehicle>
