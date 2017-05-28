@@ -11,7 +11,6 @@ const appRoutes: Routes = [
   { path: 'vehicles', component: VehicleListComponent },
   { path: 'characters', component: CharacterListComponent },
   { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
-  { path: '**', component: PageNotFoundComponent },
   { path: 'compose', component: AppMessageComponent, outlet: 'popup' } 
 ];
 

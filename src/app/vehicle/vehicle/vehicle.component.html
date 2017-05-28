@@ -1,3 +1,13 @@
-<h3>
-  We Selected: {{vehicle.name}}
-</h3>
+<h2>VEHICLES</h2>
+<div *ngIf="vehicle">
+  <h3>"{{ vehicle.name }}"</h3>
+  <div>
+    <label>Id: </label>{{ vehicle.id }}</div>
+  <div>
+    <label>Name: </label>
+    <input [(ngModel)]="vehicle.name" placeholder="name" disabled/>
+  </div>
+  <p>
+    <button (click)="gotoVehicles()">Back</button>
+  </p>
+</div>

@@ -1,3 +1,13 @@
-<p>
-  character works!
-</p>
+<h2>CHARACTERS</h2>
+<div *ngIf="character">
+  <h3>"{{ character.name }}"</h3>
+  <div>
+    <label>Id: </label>{{ character.id }}</div>
+  <div>
+    <label>Name: </label>
+    <input [(ngModel)]="character.name" placeholder="name" disabled/>
+  </div>
+  <p>
+    <button (click)="gotoCharacters()">Back</button>
+  </p>
+</div>

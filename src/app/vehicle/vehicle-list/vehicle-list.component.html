@@ -1,8 +1,10 @@
 <article>
-  <h4>My Vehicles</h4>
+  <h3>VEHICLES</h3>
 
   <ul class="items">
-    <li *ngFor="let vehicle of vehicles" (click)="select(vehicle)">
+    <li *ngFor="let vehicle of vehicles"
+      [class.selected]="isSelected(vehicle)" 
+      (click)="selectVehicle(vehicle)">
       <span class="badge">{{ vehicle.id }}</span> {{ vehicle.name }}
     </li>
   </ul>

@@ -1,9 +1,14 @@
 <article>
-  <h4>My Characters</h4>
+  <h4>CHARACTERS</h4>
 
   <ul class="items">
-    <li *ngFor="let character of characters | async">
+    <li *ngFor="let character of characters | async"
+        [class.selected]="isSelected(character)"
+        (click)="selectCharacter(character)">
        <span class="badge">{{ character.id }}</span>{{character.name}}
     </li>
   </ul>
+
+  <div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
+
 </article>
