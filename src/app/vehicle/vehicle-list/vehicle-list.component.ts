@@ -8,6 +8,7 @@ import { VehicleComponent } from '../vehicle/vehicle.component';
   styleUrls: ['./vehicle-list.component.css']
 })
 export class VehicleListComponent implements OnInit {
+  
   errorMessage: "not Initilized";
   selectedVehicle: Vehicle;
   vehicles: Vehicle[];

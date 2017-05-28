@@ -1,2 +1,16 @@
-<h1 style="display: none;">{{title}}</h1>
-<app-vehicle-list></app-vehicle-list>
+<header>
+    <h1 style="display: none;">{{title}}</h1>    
+    <nav>
+        <a href="" routerLink="/vehicles" routerLinkActive="active">Vehicles</a>
+        <a href="" routerLink="/characters" routerLinkActive="active">Characters</a>
+    </nav>
+</header>
+<main>
+    <section>
+        <router-outlet></router-outlet>
+    </section>
+    <section>
+        <router-outlet name="popup"></router-outlet>
+    </section>
+</main>
+<!--<app-vehicle-list></app-vehicle-list>-->
