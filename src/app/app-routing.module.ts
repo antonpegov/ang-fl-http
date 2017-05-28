@@ -10,7 +10,6 @@ import { AppMessageComponent } from "app/app-message.component";
 const appRoutes: Routes = [
   { path: 'vehicles', component: VehicleListComponent },
   { path: 'characters', component: CharacterListComponent },
-  { path: 'vehicle/:id', component: VehicleComponent },
   { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
   { path: 'compose', component: AppMessageComponent, outlet: 'popup' } 

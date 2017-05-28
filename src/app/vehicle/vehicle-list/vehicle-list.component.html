@@ -1,13 +1,13 @@
 <article>
   <h4>My Vehicles</h4>
 
-  <ul>
+  <ul class="items">
     <li *ngFor="let vehicle of vehicles" (click)="select(vehicle)">
-      {{vehicle.name}}
+      <span class="badge">{{ vehicle.id }}</span> {{ vehicle.name }}
     </li>
   </ul>
 
   <div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
 
-  <app-vehicle *ngIf="selectedVehicle" [vehicle]="selectedVehicle"></app-vehicle>
+  <!--<app-vehicle *ngIf="selectedVehicle" [vehicle]="selectedVehicle"></app-vehicle>-->
 </article>
