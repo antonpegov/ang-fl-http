@@ -19,7 +19,7 @@ export class VehicleListComponent implements OnInit {
   constructor(
     private _vehicleService: VehicleService,
     private _router: Router,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
@@ -29,6 +29,10 @@ export class VehicleListComponent implements OnInit {
       .subscribe((params: Params) => this.selectedId = Number(params["id"]))
   }
   
+  newVehicle(){
+    this._router.navigate(['/vehicle'])
+  }
+
   getVehicles(){
     this._vehicleService.getVehicles()
       .subscribe(

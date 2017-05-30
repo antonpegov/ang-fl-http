@@ -21,7 +21,7 @@ import { AppMessageComponent } from './app-message.component';
     VehicleModule,
     CharacterModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+   providers: [ ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

@@ -6,7 +6,8 @@ import { VehicleListComponent } from "./vehicle-list/vehicle-list.component";
 
 const vehicleRoutes = [
   { path: 'vehicles', component: VehicleListComponent },
-  { path: 'vehicle/:id', component: VehicleComponent }
+  { path: 'vehicle/:id', component: VehicleComponent },
+  { path: 'vehicle', component: VehicleComponent },
   //{ path: '**', component: PageNotFoundComponent }, //перебивает вложенные роуты
 ]
 

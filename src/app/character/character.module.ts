@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CharacterRoutingModule } from "./character-routing.module";
 import { CharacterComponent } from './character/character.component';
 import { CharacterListComponent } from './character-list/character-list.component';
-import { CharacterService } from "app/character/character.service";
+import { CharacterService} from "app/character/character.service";
 
 @NgModule({
   imports: [
@@ -14,6 +14,8 @@ import { CharacterService } from "app/character/character.service";
   ],
   providers:[CharacterService],
   declarations: [CharacterListComponent, CharacterComponent],
-  exports: [CharacterListComponent]
+  exports: [
+    CharacterListComponent
+  ]
 })
 export class CharacterModule { }

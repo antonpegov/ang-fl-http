@@ -37,3 +37,20 @@ export class CharacterService {
 export class Character {
   constructor(public id: number, public name: string) { }
 }
+
+export const characters = (state = [], action) => {
+  switch(action.type){
+    case "ADD_CHARACTER":
+      return state;
+    case "REMOVE_CHARACTER":
+      return state;
+    case "UPDATE_CHARACTER":
+      return state;
+    case "ASSIGN_VEHICLE":
+      return state;
+    case "FREE_VEHICLE":
+      return state;
+    default:
+      return state;
+  }
+}
