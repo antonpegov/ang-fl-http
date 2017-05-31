@@ -35,10 +35,10 @@ export interface AppState {
   characters: Character[];
 }
 
-export function reducer(state: any, action: any){
-    return combineReducers({
-        vehicles: vehiclesReducer, 
-        characters: characterReducer
-        /* more reducers here... */ 
-    })
-}
+// export function reducer(state: any, action: any){
+//     return combineReducers({
+//         vehicles: vehiclesReducer,
+//         characters: characterReducer
+//         /* more reducers here... */
+//     })
+// }

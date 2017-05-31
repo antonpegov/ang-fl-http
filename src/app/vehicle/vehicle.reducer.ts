@@ -12,8 +12,7 @@ export const UPDATE_VEHICLE = 'UPDATE_VEHICLE';
 /*
     Reducer for store of vehicles
 */
-export const vehiclesReducer: ActionReducer<Vehicle[]> = 
-  function (state: Vehicle[] = [], action: Action){
+export function vehiclesReducer (state: Vehicle[] = [], action: Action){
     switch(action.type){
       case 'INIT_VEHICLES':
         console.log('Vehicles initialized...')

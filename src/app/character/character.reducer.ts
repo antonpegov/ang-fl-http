@@ -11,8 +11,7 @@ export const UPDATE_CHARCTER = 'UPDATE_CHARCTER';
 /*
     Reducer for store of characters
 */
-export const characterReducer: ActionReducer<Character[]> = 
-  function (state: Character[] = [], action: Action){
+export function characterReducer(state: Character[] = [], action: Action){
     switch(action.type){
       case 'INIT_CHARCTERS':
         console.log('Vehicles initialized...')

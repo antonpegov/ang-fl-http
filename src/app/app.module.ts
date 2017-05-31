@@ -7,7 +7,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from "app/app-routing.module";
 import { CharacterModule } from "app/character/character.module";
 import { AppMessageComponent } from './app-message.component';
-import { StoreModule, reducer } from "./app.state";
+//import { StoreModule, reducer } from "./app.state";
+import { StoreModule } from "./app.state";
+import { vehiclesReducer } from "app/vehicle/vehicle.reducer";
+import { characterReducer } from "app/character/character.reducer";
 
 @NgModule({
   declarations: [
@@ -15,7 +18,12 @@ import { StoreModule, reducer } from "./app.state";
     AppMessageComponent,
   ],
   imports: [
-    StoreModule.provideStore(reducer),
+    //StoreModule.provideStore(reducer),
+    StoreModule.provideStore({
+        vehicles: vehiclesReducer, 
+        characters: characterReducer
+        /* more reducers here... */ 
+    }),
     BrowserModule,
     FormsModule,
     HttpModule,
