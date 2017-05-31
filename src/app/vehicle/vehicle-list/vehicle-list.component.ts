@@ -1,29 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Vehicle, VehicleService } from '../vehicle.service';
+import { Vehicle, VehicleService} from '../vehicle.service';
+import { INIT_VEHICLES, ADD_VEHICLE, REMOVE_VEHICLE, UPDATE_VEHICLE } from '../vehicle.reducer';
 import { VehicleComponent } from '../vehicle/vehicle.component';
 import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Store } from "@ngrx/store";
+import { AppState } from "../../app.state";
 
 @Component({
   selector: 'app-vehicle-list',
   templateUrl: './vehicle-list.component.html',
-  styleUrls: ['./vehicle-list.component.css']
+  //styleUrls: ['./vehicle-list.component.css']
 })
 export class VehicleListComponent implements OnInit {
   
-  errorMessage: "not Initilized";
-  selectedVehicle: Vehicle;
-  selectedId: number;
-  vehicles: Vehicle[];
+  private errorMessage: "not Initilized";
+  private selectedVehicle: Vehicle;
+  private selectedId: number;
+  private vehicles: Observable<Vehicle[]>;
 
   constructor(
     private _vehicleService: VehicleService,
     private _router: Router,
     private _route: ActivatedRoute,
-  ) {}
+    private _store: Store<AppState>
+  ) {
+    this.vehicles = _store.select('vehicles');
+  }
 
   ngOnInit() {
-    this.getVehicles();
+    // Если не было загрузки данных, загрузить их и поместить в хранилище
+    if(!this._vehicleService.dataIsLoaded){
+      this._vehicleService.getVehicles().subscribe(vehicles =>
+        this._store.dispatch({type: INIT_VEHICLES, payload: vehicles})
+      )
+    }
     this.errorMessage = null;
     this._route.params
       .subscribe((params: Params) => this.selectedId = Number(params["id"]))
@@ -33,20 +44,12 @@ export class VehicleListComponent implements OnInit {
     this._router.navigate(['/vehicle'])
   }
 
-  getVehicles(){
-    this._vehicleService.getVehicles()
-      .subscribe(
-        vehicles => this.vehicles = vehicles, // success
-        error => this.errorMessage = error    // falure
-      );
-  }
-
   selectVehicle(vehicle:Vehicle){
     this.selectedVehicle = vehicle;
     this._router.navigate(['/vehicle', vehicle.id])
   }
 
-  isSelected(vehicle: Vehicle) {debugger;
+  isSelected(vehicle: Vehicle) {
     return vehicle.id === this.selectedId; 
   }
 

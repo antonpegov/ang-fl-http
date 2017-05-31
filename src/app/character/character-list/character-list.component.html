@@ -1,11 +1,18 @@
 <article>
-  <h4>CHARACTERS</h4>
+  <h4>CHARACTERS <span class='add_button' (click)="newVehicle()">add new</span></h4>
 
   <ul class="items">
     <li *ngFor="let character of characters | async"
-        [class.selected]="isSelected(character)"
-        (click)="selectCharacter(character)">
-       <span class="badge">{{ character.id }}</span>{{character.name}}
+      [class.selected]="isSelected(character)"
+      (click)="selectCharacter(character)">
+      <span class="badge">
+        {{ character.id }}
+      </span>
+      {{character.name}}
+      <span class = "status" 
+          (click) = "character.vehicle ? openVehicle(character) : null"
+          title = "{{character.vehicle ? 'Click to open Vehicle' : 'Character has no vehicle' }}">
+      </span> 
     </li>
   </ul>
 

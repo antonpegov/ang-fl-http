@@ -9,6 +9,9 @@ h2, h3 {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: lighter;
 }
+h4{
+  margin-bottom: 1em;
+}
 body {
   margin: 2em;
 }
@@ -37,7 +40,27 @@ button:disabled {
   color: #aaa;
   cursor: auto;
 }
-
+button.apply{
+  background-color: #a8f7a8;
+}
+button.apply:hover{
+  background-color: #98e398;
+}
+button.apply:disabled{
+  background-color: #eee;
+}
+button.abort{
+  background-color: #ffef5d;
+}
+button.abort:hover{
+  background-color: #f7e227;
+}
+button.anger{
+  background-color: #ff9a9a;
+}
+button.anger:hover{
+  background-color: #ff7575;
+}
 /* Navigation link styles */
 nav a {
   padding: 5px 10px;
@@ -106,12 +129,34 @@ nav a.active {
   margin-right: .8em;
   border-radius: 4px 0 0 4px;
 }
+.items .status {
+    font-size: small;
+    color: #04d87b;
+    padding: 0.8em 0.7em 0 0.7em;
+    line-height: 1em;
+    position: relative;
+    top: -4px;
+    margin-right: .1em;
+    float: right;
+}
+  .items .status.ascribed {
+    color: red;    
+  }
+
 /* everywhere else */
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
-/*
-Copyright 2017 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/
+
+span.add_button{
+    background-color: #04d87b;
+    padding: 1px 4px;
+    border-radius: 4px;
+    color: #fff;
+    margin-left: 5px;
+    font-size: smaller;
+    cursor: pointer;
+}
+span.add_button:hover{
+  background-color: #00c86b;
+}

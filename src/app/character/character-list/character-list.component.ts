@@ -6,7 +6,7 @@ import { Router, Params, ActivatedRoute } from "@angular/router";
 @Component({
   selector: 'app-character-list',
   templateUrl: './character-list.component.html',
-  styleUrls: ['./character-list.component.css']
+  //styleUrls: ['./character-list.component.css']
 })
 export class CharacterListComponent implements OnInit {
 
@@ -34,7 +34,7 @@ export class CharacterListComponent implements OnInit {
     this._router.navigate(['/character', character.id])
   }
 
-  isSelected(character: Character) {debugger;
+  isSelected(character: Character) {
     return character.id === this.selectedId; 
   }
 }
