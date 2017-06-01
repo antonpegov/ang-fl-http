@@ -1,32 +1,36 @@
 <h4>CHARACTERS</h4>
-<div *ngIf="newCharcter; then addCharacterBlock; else editCharacterBlock"></div>
+<div *ngIf="newCharacter; then addCharacterBlock; else editCharacterBlock"></div>
 
 <ng-template #editCharacterBlock>
-  <h3>{{ character.name }}</h3>
-  <div>
-    <label>Id: </label>{{ character.id }}</div>
-  <div>
-    <label>Name: </label>
-    <input [(ngModel)]="character.name" placeholder="name" />
+  <div *ngIf="viewReady">
+    <h3>{{ character.name }}</h3>
+    <div>
+      <label>Id: </label>{{ character.id }}</div>
+    <div>
+      <label>Name: </label>
+      <input [(ngModel)]="character.name" placeholder="name" />
+    </div>
+    <p>
+      <button (click)="updateCharacter()">Back</button>
+      <button class="abort" (click)="deleteCharacter()">Remove</button>
+    </p>
   </div>
-  <p>
-    <button (click)="saveCharacter()">Back</button>
-    <button class="abort" (click)="removeCharacter()">Remove</button>
-  </p>
 </ng-template>
 
 <ng-template #addCharacterBlock>
-  <h3>Add new character</h3>
-  <div>
-    <label>Id: </label>{{ character.id }}</div>
-  <div>
-    <label>Name: </label>
-    <input [(ngModel)]="character.name" placeholder="name" />
+  <div *ngIf="viewReady">
+    <h3>Add new character</h3>
+    <div>
+      <label>Id: </label>{{ character.id }}</div>
+    <div>
+      <label>Name: </label>
+      <input [(ngModel)]="character.name" placeholder="name" />
+    </div>
+    <p>
+      <button (click)="navToCharacterList(true)">Cancel</button>
+      <button class="apply" 
+          (click)="createCharacter()" 
+          [disabled]="!character.name || character.name.length == 0">Save</button>
+    </p>
   </div>
-  <p>
-    <button (click)="navToCharacterList()">Cancel</button>
-    <button class="apply" 
-        (click)="addCharacter()" 
-        [disabled]="!character.name || character.name.length == 0">Save</button>
-  </p>
 </ng-template>

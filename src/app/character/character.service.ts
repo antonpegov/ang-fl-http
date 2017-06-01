@@ -10,12 +10,16 @@ export class CharacterService {
 
   private realApi = 'assets/api/characters.json';
   private mockApi = AppMocks.CHARACTER_API;
+  public dataIsLoaded = false;
 
   constructor(private _http: Http) { }
 
   public getCharacters(): Observable<Character[]>{
     return this._http.get(this.realApi)
-      .map(item => item.json().data)
+      .map(response => { 
+        this.dataIsLoaded = true;
+        return response.json().data;
+      })
       .catch(this.handleError);
   } 
 
@@ -25,6 +29,7 @@ export class CharacterService {
 
   private handleError(error: Response | any) {
     let errMsg: string;
+    this.dataIsLoaded = false;
     if (error instanceof Response) {
       errMsg = `${error.status} - ${error.statusText || ''}`;
     } else {
@@ -36,5 +41,7 @@ export class CharacterService {
 }
 
 export class Character {
-  constructor(public id: number, public name: string, vehicle?: Vehicle) { }
+  constructor(public id: number, public name: string, public vehicle?: Vehicle) { 
+    console.log('new character created...');
+  }
 }

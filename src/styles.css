@@ -98,6 +98,8 @@ nav a.active {
   padding: .3em 0;
   height: 1.6em;
   border-radius: 4px;
+  transition: all ease-out .07s;
+  transition-delay: .05s;
 }
 .items li:hover {
   color: #607D8B;

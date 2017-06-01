@@ -16,6 +16,7 @@ export class VehicleComponent implements OnInit {
   private vehicle: Vehicle// = new Vehicle(1,'asd'); 
   private vehicles: Observable<Vehicle[]>;
   private newVehicle: boolean = true;
+  private viewReady: boolean = true;  // Костыль для задержки рендеринга в случае загрузки данных
 
   constructor(
     private _route: ActivatedRoute,
@@ -28,39 +29,47 @@ export class VehicleComponent implements OnInit {
   
   ngOnInit() {
     let id = this._route.snapshot.params.id ? this._route.snapshot.params.id : null;
-    if(id){ // Передан id       
+    if(id){ 
+      // Передан id, работа с существующим объектом     
       this.newVehicle = false;     
       // Если не были загружены данные, загрузить 
-      if (!this._vehicleService.dataIsLoaded){ 
+      if (this._vehicleService.dataIsLoaded){ 
+        this.vehicles.subscribe(vehicles => 
+          this.vehicle = vehicles.find(item => item.id === Number(id))
+        );
+      } else {
+        this.viewReady = false;
         this._vehicleService.getVehicles().subscribe(vehicles => {
           this._store.dispatch({type: INIT_VEHICLES, payload: vehicles});   
           this.vehicles.subscribe(vehicles => {
             this.vehicle = vehicles.find(item => item.id === Number(id))
+            this.viewReady = true;
           }); 
         })
-      } else {
-        this.vehicles.subscribe(vehicles => 
-          this.vehicle = vehicles.find(item => item.id === Number(id))
-        );  
       }   
-      if(!this.vehicle) 
-        console.error('No Vehicle found!');
-    } else { // id пустой, создаем новый объект      
-      this.vehicle = new Vehicle(this.getLastVehicleId()+1, null, null);      
+    } else { 
+      // id пустой, нужно создать новый объект  
+      if (this._vehicleService.dataIsLoaded){
+        this.vehicle = new Vehicle(this.getLastVehicleId()+1, '');      
+      } else {
+        this.viewReady = false;
+        // TODO: отработать кейс обновления страницы (данных нет)
+        this._router.navigate(['/vehicles']);
+      }   
     }
-  }
-  
-  private saveVehicle(){
-    this._store.dispatch({ type: UPDATE_VEHICLE, payload: this.vehicle });
-    this.navToVehicleList();
-  }
+  }  
 
-  private addVehicle(){
+  private createVehicle(){
     this._store.dispatch({ type: ADD_VEHICLE, payload: this.vehicle });
     this.navToVehicleList();
   }
 
-  private removeVehicle(){
+  private updateVehicle(){
+    this._store.dispatch({ type: UPDATE_VEHICLE, payload: this.vehicle });
+    this.navToVehicleList();
+  }
+
+  private deleteVehicle(){
     this._store.dispatch({ type: REMOVE_VEHICLE, payload: this.vehicle });
     this.navToVehicleList(true);
   }
@@ -72,7 +81,7 @@ export class VehicleComponent implements OnInit {
     )
     return id;
   }
-  private navToVehicleList(toRoot?:boolean){
+  private navToVehicleList(toRoot?: boolean){
     this._router.navigate(['/vehicles', { id: toRoot ? null : this.vehicle.id }]);
   }
 }

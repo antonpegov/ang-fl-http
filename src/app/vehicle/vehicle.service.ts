@@ -7,12 +7,13 @@ import 'rxjs/Rx';
 @Injectable()
 export class VehicleService {
   
+  private realApi = 'assets/api/vehicles.json';
   public dataIsLoaded = false;
 
   constructor(private _http: Http) { }
   
   getVehicles(): Observable<Vehicle[]>{
-    return this._http.get('assets/api/vehicles.json')
+    return this._http.get(this.realApi)
       .map(response => { 
         this.dataIsLoaded = true; 
         return <Vehicle[]>response.json().data;
@@ -22,6 +23,7 @@ export class VehicleService {
 
   private handleError(error: Response | any) {
     let errMsg: string;
+    this.dataIsLoaded = false;
     if (error instanceof Response) {
       errMsg = `${error.status} - ${error.statusText || ''}`;
     } else {

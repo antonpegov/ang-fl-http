@@ -29,6 +29,9 @@ export class VehicleListComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Выделение персонажа по переданному id
+    this._route.params
+      .subscribe((params: Params) => this.selectedId = Number(params["id"]))
     // Если не было загрузки данных, загрузить их и поместить в хранилище
     if(!this._vehicleService.dataIsLoaded){
       this._vehicleService.getVehicles().subscribe(vehicles =>
@@ -36,8 +39,6 @@ export class VehicleListComponent implements OnInit {
       )
     }
     this.errorMessage = null;
-    this._route.params
-      .subscribe((params: Params) => this.selectedId = Number(params["id"]))
   }
   
   newVehicle(){
