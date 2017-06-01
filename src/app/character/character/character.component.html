@@ -26,6 +26,20 @@
       <label>Name: </label>
       <input [(ngModel)]="character.name" placeholder="name" />
     </div>
+    <div>
+      <md-button href="url"
+                 id="button-id"
+                 class="button-class|md-primary"
+                 ng-disabled="true"
+                 md-ripple-size="full | partial | auto"
+                 md-no-ink="true"
+                 aria-label="button-label"> button-label </md-button>
+      <!--<md-select placeholder="vehicle" [(ngModel)]="character.vehicle">
+        <md-option *ngFor="let vehicle of freeVehicles | async">
+          {{vehicle.name}}
+        </md-option>
+      </md-select>-->
+    </div>
     <p>
       <button (click)="navToCharacterList(true)">Cancel</button>
       <button class="apply" 

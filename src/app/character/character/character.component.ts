@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, Params } from "@angular/router";
 import { CharacterService, Character } from "../character.service";
 import { Store } from "app/app.state";
 import { INIT_CHARACTERS, ADD_CHARACTER, REMOVE_CHARACTER, UPDATE_CHARACTER  } from "../character.reducer";
-//import "rxjs";
+import { MdSelect, MdOption, MdButton } from "@angular/material";
 import { Observable } from "rxjs/Observable";
 
 @Component({
@@ -28,7 +28,9 @@ export class CharacterComponent implements OnInit {
     this.characters = _store.select('characters');
   }
 
-  ngOnInit() {
+  ngOnInit() {debugger
+    console.log(MdButton);
+
     this.id = this._route.snapshot.params.id ? Number(this._route.snapshot.params.id) : null;
     if(this.id){
       this.newCharacter = false;
