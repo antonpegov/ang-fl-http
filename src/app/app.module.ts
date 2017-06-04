@@ -1,4 +1,4 @@
-import 'hammerjs';
+//import 'hammerjs';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -13,15 +13,13 @@ import { StoreModule } from "./app.state";
 import { vehiclesReducer } from "app/vehicle/vehicle.reducer";
 import { characterReducer } from "app/character/character.reducer";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MdButtonModule, MdCheckboxModule } from '@angular/material';
 
 @NgModule({
   declarations: [
     AppComponent,
     AppMessageComponent,
   ],
-  imports: [
-    MdButtonModule, MdCheckboxModule,
+  imports: [   
     //StoreModule.provideStore(reducer),
     StoreModule.provideStore({
         vehicles: vehiclesReducer, 

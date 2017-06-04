@@ -5,10 +5,12 @@ import { VehicleRoutingModule } from "./vehicle-routing.module";
 import { VehicleComponent } from './vehicle/vehicle.component';
 import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
 import { VehicleService } from './vehicle.service';
+import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
   providers:[ VehicleService ],
   imports: [
+    SharedModule,
     FormsModule,
     CommonModule,
     VehicleRoutingModule

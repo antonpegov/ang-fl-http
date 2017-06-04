@@ -1,7 +1,26 @@
 
-  @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* 
+    Статическе свойства
+*/
+main, section, article, ul, scrollable {
+  height: 100%
+}
+.main {
+  display: inline-block;
+}
+.scrollable{
+  overflow-y : auto; 
+}
 
 /* Master Styles */
+html{
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background-color: #fffcff;
+}
 h1 {
   color: #369;
   font-family: Arial, Helvetica, sans-serif;
@@ -27,6 +46,7 @@ a {
   cursor: hand;
 }
 button {
+  position: relative;
   font-family: Arial;
   background-color: #eee;
   border: none;
@@ -34,9 +54,12 @@ button {
   border-radius: 4px;
   cursor: pointer;
   cursor: hand;
+  transition: all ease-in-out .2s;
+  transition-delay: .05s;
 }
 button:hover {
   background-color: #cfd8dc;
+  top: -0.1em;
 }
 button:disabled {
   background-color: #eee;
@@ -101,8 +124,8 @@ nav a.active {
   padding: .3em 0;
   height: 1.6em;
   border-radius: 4px;
-  transition: all ease-out .07s;
-  transition-delay: .05s;
+  transition: all linear .02s;
+  transition-delay: .04s;
 }
 .items li:hover {
   color: #607D8B;
@@ -165,3 +188,68 @@ span.add_button{
 span.add_button:hover{
   background-color: #00c86b;
 }
+.full-width{
+  width:100%;
+}
+
+/*
+    Стили карточки
+*/
+.mat-card {
+  width: 350px;
+}
+  .mat-card .mat-card-header {
+    position: absolute;
+    width: 100%;
+    display: block;
+  }
+    .mat-card .mat-card-header .mat-icon {
+        float: right;
+        position: relative;
+        margin-right: 80px;
+        font-size: 70px;
+        color: #ddd;
+        top: -15px;
+    }
+.mat-card .mat-card-title {
+    max-width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 20px;
+    font-weight: 400;
+    color: #888;
+    margin-bottom: 30px;
+}
+.mat-card .mat-slide-toggle-label-before {
+  margin-left: 10px;
+}
+.mat-card .mat-slide-toggle-label-before .mat-slide-toggle-bar {
+  margin-left: 15px;
+}
+.mat-card .card-buttons {
+  margin-bottom: 0;
+  margin-top: 25px;
+}  
+  .mat-card .card-buttons button {
+      margin: 5px;
+      padding: 15px 20px;
+  }
+.mat-card .mat-input-element {
+  font-size: x-large !important;
+} 
+.mat-card .row {
+  margin: 10px 0;
+  padding-left: 3px;
+  width: 90%;
+}
+/* Убирает подчеркивание в инпуте, вложенном в Селект */
+.tricky-select .mat-input-underline {
+  display: none;
+}
+.tricky-select .mat-input-wrapper {
+  margin-top: 0;
+}
+
+
+

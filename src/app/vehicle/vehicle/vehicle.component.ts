@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
 import { INIT_VEHICLES, ADD_VEHICLE, REMOVE_VEHICLE, UPDATE_VEHICLE } from '../vehicle.reducer';
+import { MdSelect, MdOption, MdCard, MdIcon, MdSlideToggle } from "@angular/material";
 import { AppState } from "app/app.state";
 
 @Component({

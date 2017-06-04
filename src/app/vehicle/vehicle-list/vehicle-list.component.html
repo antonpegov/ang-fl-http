@@ -1,21 +1,21 @@
 <article>
   <h4>VEHICLES <span class='add_button' (click)="newVehicle()">add new</span></h4>
-
-  <ul class="items">
-    <li *ngFor="let vehicle of vehicles | async"
-      [class.selected]="isSelected(vehicle)" 
-      (click)="selectVehicle(vehicle)">
-      <span class="badge">{{ vehicle.id }}</span> 
-      {{ vehicle.name }}
-      <span class = "status" 
-        [class.ascribed] = "vehicle.characterId"
-        (click) = "vehicle.characterId ? openCharacter(vehicle.characterId) : null"
-        title = "{{vehicle.characterId ? 'Click to open Character' : 'Vehicle is avalable' }}">
-        {{ vehicle.characterId ? 'Ascribed' : 'Avalable'}}
-      </span> 
-    </li>
-  </ul>
-
+  <div class="scrollable">
+    <ul class="items">
+      <li *ngFor="let vehicle of vehicles | async"
+        [class.selected]="isSelected(vehicle)" 
+        (click)="selectVehicle(vehicle)">
+        <span class="badge">{{ vehicle.id }}</span> 
+        {{ vehicle.name }}
+        <span class = "status" 
+          [class.ascribed] = "vehicle.characterId"
+          (click) = "vehicle.characterId ? openCharacter(vehicle.characterId) : null"
+          title = "{{vehicle.characterId ? 'Click to open Character' : 'Vehicle is avalable' }}">
+          {{ vehicle.characterId ? 'Ascribed' : 'Avalable'}}
+        </span> 
+      </li>
+    </ul>
+  </div>
   <div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
 
   <!--<app-vehicle *ngIf="selectedVehicle" [vehicle]="selectedVehicle"></app-vehicle>-->

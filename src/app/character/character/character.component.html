@@ -1,16 +1,49 @@
 <h4>CHARACTERS</h4>
-<div *ngIf="newCharacter; then addCharacterBlock; else editCharacterBlock"></div>
+
+<md-card>
+  <md-card-header>
+    <md-icon>{{ newCharacter ? 'person_add' : 'person' }}</md-icon>
+  </md-card-header>
+  <md-card-title>
+    <!--{{ newCharacter ? 'Add new character' : character.name }}-->
+  </md-card-title>
+  <md-card-content >
+    <div *ngIf="newCharacter; then addCharacterBlock; else editCharacterBlock"></div>
+  </md-card-content>
+</md-card>
+
+<!-- Шаблоны для содержимого карточки: -->
 
 <ng-template #editCharacterBlock>
   <div *ngIf="viewReady">
-    <h3>{{ character.name }}</h3>
-    <div>
-      <label>Id: </label>{{ character.id }}</div>
-    <div>
-      <label>Name: </label>
-      <input [(ngModel)]="character.name" placeholder="name" />
+    <div class="row">
+      <md-input-container class="full-width">
+        <input mdInput [(ngModel)]="character.name">
+        <md-hint align="end">Character's Name</md-hint>
+      </md-input-container>
     </div>
-    <p>
+    <div class="row">
+      <md-input-container class="full-width tricky-select">
+        <input type="text" mdInput class="full-width" [ngStyle]="{'display':'none'}" >
+        <md-select [(ngModel)]="selectedValue" name="food" class="full-width">
+          <md-option *ngFor="let vehicle of foods" [value]="vehicle.value">
+            {{vehicle.viewValue}}
+          </md-option>
+        </md-select>
+        <md-hint align="end">Character's Vehicle</md-hint>
+      </md-input-container>
+    </div>
+    <div class="row">
+      <md-slide-toggle 
+          labelPosition="before"
+          class="example-margin"
+          [color]="slider_color"
+          [checked]="slider_checked"
+          [disabled]="slider_disabled">
+        Has Vehicle
+      </md-slide-toggle>
+    </div>
+    <p class="card-buttons">
       <button (click)="updateCharacter()">Back</button>
       <button class="abort" (click)="deleteCharacter()">Remove</button>
     </p>
@@ -19,28 +52,34 @@
 
 <ng-template #addCharacterBlock>
   <div *ngIf="viewReady">
-    <h3>Add new character</h3>
-    <div>
-      <label>Id: </label>{{ character.id }}</div>
-    <div>
-      <label>Name: </label>
-      <input [(ngModel)]="character.name" placeholder="name" />
+    <div class="row">
+      <md-input-container class="full-width">
+        <input mdInput [(ngModel)]="character.name">
+        <md-hint align="end">Character's Name</md-hint>
+      </md-input-container>
     </div>
-    <div>
-      <md-button href="url"
-                 id="button-id"
-                 class="button-class|md-primary"
-                 ng-disabled="true"
-                 md-ripple-size="full | partial | auto"
-                 md-no-ink="true"
-                 aria-label="button-label"> button-label </md-button>
-      <!--<md-select placeholder="vehicle" [(ngModel)]="character.vehicle">
-        <md-option *ngFor="let vehicle of freeVehicles | async">
-          {{vehicle.name}}
-        </md-option>
-      </md-select>-->
+    <div class="row">
+      <md-input-container class="full-width tricky-select">
+        <input type="text" mdInput class="full-width" [ngStyle]="{'display':'none'}" >
+        <md-select [(ngModel)]="selectedValue" name="food" class="full-width">
+          <md-option *ngFor="let vehicle of foods" [value]="vehicle.value">
+            {{vehicle.viewValue}}
+          </md-option>
+        </md-select>
+        <md-hint align="end">Character's Vehicle</md-hint>
+      </md-input-container>
     </div>
-    <p>
+    <div class="row">
+      <md-slide-toggle
+          labelPosition="before"
+          class="slider_margin"
+          [color]="slider_color"
+          [checked]="slider_checked"
+          [disabled]="slider_disabled">
+        Has Vehicle
+      </md-slide-toggle>
+    </div>
+    <p class="card-buttons">
       <button (click)="navToCharacterList(true)">Cancel</button>
       <button class="apply" 
           (click)="createCharacter()" 

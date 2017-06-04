@@ -1,17 +1,28 @@
 <h4>VEHICLES</h4>
 
-<div *ngIf="newVehicle; then addVehicleBlock; else editVehicleBlock"></div>
+<md-card>
+  <md-card-header>
+    <md-icon>{{ newVehicle ? 'person_add' : 'person' }}</md-icon>
+  </md-card-header>
+  <md-card-title>
+    <!--{{ newCharacter ? 'Add new character' : character.name }}-->
+  </md-card-title>
+  <md-card-content >
+    <div *ngIf="newVehicle; then addVehicleBlock; else editVehicleBlock"></div>
+  </md-card-content>
+</md-card>
+
+<!-- Шаблоны для содержимого карточки: -->
 
 <ng-template #editVehicleBlock>
   <div *ngIf="viewReady">
-    <h3>{{ vehicle.name }}</h3>
-    <div>
-      <label>Id: </label>{{ vehicle.id }}</div>
-    <div>
-      <label>Name: </label>
-      <input [(ngModel)]="vehicle.name" placeholder="name" />
+    <div class="row">
+      <md-input-container class="full-width">
+        <input mdInput [(ngModel)]="vehicle.name">
+        <md-hint align="end">Vehicle Name</md-hint>
+      </md-input-container>
     </div>
-    <p>
+    <p class="card-buttons">
       <button (click)="updateVehicle()">Back</button>
       <button class="abort" (click)="deleteVehicle()">Remove</button>
     </p>
@@ -20,16 +31,13 @@
 
 <ng-template #addVehicleBlock>
   <div *ngIf="viewReady">
-    <h3>Add new vehicle</h3>
-    <div>
-      <label>Id: </label>
-      {{ vehicle.id }}
+    <div class="row">
+      <md-input-container class="full-width">
+        <input mdInput [(ngModel)]="vehicle.name">
+        <md-hint align="end">Vehicle Name</md-hint>
+      </md-input-container>
     </div>
-    <div>
-      <label>Name: </label>
-      <input [(ngModel)]="vehicle.name" placeholder="name" />
-    </div>
-    <p>
+    <p class="card-buttons">
       <button (click)="navToVehicleList(true)">Cancel</button>
       <button class="apply" (click)="createVehicle()" [disabled]="!vehicle.name || vehicle.name.length == 0">Save</button>
     </p>

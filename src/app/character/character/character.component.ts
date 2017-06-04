@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, Params } from "@angular/router";
 import { CharacterService, Character } from "../character.service";
 import { Store } from "app/app.state";
 import { INIT_CHARACTERS, ADD_CHARACTER, REMOVE_CHARACTER, UPDATE_CHARACTER  } from "../character.reducer";
-import { MdSelect, MdOption, MdButton } from "@angular/material";
+import { MdSelect, MdOption, MdCard, MdIcon, MdSlideToggle } from "@angular/material";
 import { Observable } from "rxjs/Observable";
 
 @Component({
@@ -18,6 +18,12 @@ export class CharacterComponent implements OnInit {
   private viewReady: boolean = true;            // Флаг для задержки рендеринга
   private newCharacter: boolean = true;
   private id: number;   // Id персонажа, переданный через параметр в url
+  foods = [
+    {value: 'steak-0', viewValue: 'Порк'},
+    {value: 'pizza-1', viewValue: 'Пица'},
+    {value: 'tacos-2', viewValue: 'Чипсы'}
+  ];
+  selectedValue: string = 'test'; 
 
   constructor(
     private _route: ActivatedRoute,
@@ -28,9 +34,7 @@ export class CharacterComponent implements OnInit {
     this.characters = _store.select('characters');
   }
 
-  ngOnInit() {debugger
-    console.log(MdButton);
-
+  ngOnInit() {
     this.id = this._route.snapshot.params.id ? Number(this._route.snapshot.params.id) : null;
     if(this.id){
       this.newCharacter = false;
@@ -48,11 +52,14 @@ export class CharacterComponent implements OnInit {
           })
         });
       }
-    } else {
+    } else {debugger
       // id пустой, нужно создать новый объект  
-      this._characterService.dataIsLoaded ?
-        (function(self){self.character = new Character(self.getLastCharacterId()+1, '')})(this) :
+      if(this._characterService.dataIsLoaded){
+        this.character = new Character(this.getLastCharacterId()+1, '');
+      } else {
+        this.viewReady = false;
         this._router.navigate(['/characters']);      
+      }
     }
   }
 
@@ -68,17 +75,14 @@ export class CharacterComponent implements OnInit {
     this._store.dispatch({type: REMOVE_CHARACTER, payload: this.character});
     this.navToCharacterList(true);
   }
-
   private getCharacter(id: number): Observable<Character> {
     return this.characters.map(characters => characters.find(c => c.id == id))
   }
-
   private getLastCharacterId(){
     let id: number;
     this.characters.subscribe((c:Character[]) => id = c[c.length-1].id);
     return id;
   }
-
   private navToCharacterList(toRoot?: boolean): void {
     this._router.navigate(['/characters', { id: toRoot ? null : this.id}]);
   }
