@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { CharacterService, Character } from "../character.service";
 import { Router, Params, ActivatedRoute } from "@angular/router";
-import { Store } from "../../app.state";
-import { INIT_CHARACTERS } from "../character.reducer";
+import { AppState, Store } from "../../app.state";
+import { CharacterActions } from "app/store/actions";
+import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
+import { AngularFireAuth, AngularFireAuthProvider,FirebaseAuthStateObservable } from "angularfire2/auth";
 
 @Component({
   selector: 'app-character-list',
@@ -21,9 +23,12 @@ export class CharacterListComponent implements OnInit {
     private _characterService: CharacterService,
     private _router: Router,
     private _route: ActivatedRoute,
-    private _store: Store<Character[]>
+    private _store: Store<AppState>,
+    private _characterActions: CharacterActions,
+    private _db: AngularFireDatabase,
+    private _auth: AngularFireAuth,
   ) {
-    this.characters = _store.select('characters');
+    this.characters = _store.select(s => s.characters);
   }
 
   ngOnInit() {
@@ -34,9 +39,16 @@ export class CharacterListComponent implements OnInit {
       );
     // Если не было загрузки данных, загрузить их и поместить в хранилище
     if(!this._characterService.dataIsLoaded){
-      this._characterService.getCharacters().subscribe(characters => 
-        this._store.dispatch({type: INIT_CHARACTERS, payload: characters})
-      )
+      this.getCharacters().subscribe(data => {
+        if(data.$exists()){
+          this._characterService.dataIsLoaded = true;
+        } else {
+          this._characterService.getCharacters().subscribe(characters => 
+            //this._store.dispatch({type: INIT_CHARACTERS, payload: characters})
+            this._db.object('/characters').set(characters).catch(error =>{ console.log(error); })
+          )
+        }
+      })
     }
     this.errorMessage = null;
   }
@@ -52,5 +64,9 @@ export class CharacterListComponent implements OnInit {
 
   private isSelected(character: Character) {
     return character.id === this.selectedId; 
+  }
+
+  private getCharacters(){
+    return this._db.object('/characters');
   }
 }

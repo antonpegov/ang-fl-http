@@ -6,9 +6,13 @@ import { VehicleComponent } from './vehicle/vehicle.component';
 import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
 import { VehicleService } from './vehicle.service';
 import { SharedModule } from "../shared/shared.module";
+import { VehicleActions } from "app/store/actions";
 
 @NgModule({
-  providers:[ VehicleService ],
+  providers:[ 
+    VehicleService,
+    VehicleActions
+     ],
   imports: [
     SharedModule,
     FormsModule,

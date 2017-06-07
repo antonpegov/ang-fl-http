@@ -1,6 +1,6 @@
 <h4>CHARACTERS</h4>
 
-<md-card>
+<md-card *ngIf="viewReady">
   <md-card-header>
     <md-icon>{{ newCharacter ? 'person_add' : 'person' }}</md-icon>
   </md-card-header>
@@ -11,11 +11,11 @@
     <div *ngIf="newCharacter; then addCharacterBlock; else editCharacterBlock"></div>
   </md-card-content>
 </md-card>
+<md-spinner *ngIf="!viewReady" style="margin: 50px 100px"></md-spinner>
 
 <!-- Шаблоны для содержимого карточки: -->
 
 <ng-template #editCharacterBlock>
-  <div *ngIf="viewReady">
     <div class="row">
       <md-input-container class="full-width">
         <input mdInput [(ngModel)]="character.name">
@@ -47,11 +47,9 @@
       <button (click)="updateCharacter()">Back</button>
       <button class="abort" (click)="deleteCharacter()">Remove</button>
     </p>
-  </div>
 </ng-template>
 
 <ng-template #addCharacterBlock>
-  <div *ngIf="viewReady">
     <div class="row">
       <md-input-container class="full-width">
         <input mdInput [(ngModel)]="character.name">
@@ -85,5 +83,4 @@
           (click)="createCharacter()" 
           [disabled]="!character.name || character.name.length == 0">Save</button>
     </p>
-  </div>
 </ng-template>

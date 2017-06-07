@@ -12,7 +12,12 @@ main, section, article, ul, scrollable {
 }
 .scrollable{
   overflow-y : auto; 
+  height: 90%;
+  width: 410px;
 }
+  .scrollable .items{
+    display: inline
+  }
 
 /* Master Styles */
 html{
@@ -36,6 +41,7 @@ h4{
 }
 body {
   margin: 2em;
+  height: calc(100% - 100px);
 }
 body, input[text], button {
   color: #888;
@@ -251,5 +257,21 @@ span.add_button:hover{
   margin-top: 0;
 }
 
+/* Стили снекбара */
+snack-bar-container {
+  background-color: #607D8B !important;
+}
+.green .mat-simple-snackbar {
+  color: greenyellow;
+}
+.yellow .mat-simple-snackbar {
+  color: yellow;
+}
+.red .mat-simple-snackbar {
+  color: lightpink;
+}
 
+.primary-color {
+    color: #3F51B5!important;
+  }
 

@@ -4,6 +4,7 @@ import { Http, Response } from '@angular/http';
 import { AppMocks } from '../app.mocks';
 import { Observable } from "rxjs/Observable";
 import { Vehicle } from "app/vehicle/vehicle.service";
+import { Store, AppState } from "app/app.state";
 
 @Injectable()
 export class CharacterService {
@@ -12,7 +13,10 @@ export class CharacterService {
   private mockApi = AppMocks.CHARACTER_API;
   public dataIsLoaded = false;
 
-  constructor(private _http: Http) { }
+  constructor(
+    private _http: Http,
+    private _store: Store<AppState>,
+  ) {}
 
   public getCharacters(): Observable<Character[]>{
     return this._http.get(this.realApi)

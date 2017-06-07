@@ -1,6 +1,6 @@
 <h4>VEHICLES</h4>
 
-<md-card>
+<md-card *ngIf="viewReady">
   <md-card-header>
     <md-icon>{{ newVehicle ? 'person_add' : 'person' }}</md-icon>
   </md-card-header>
@@ -11,11 +11,11 @@
     <div *ngIf="newVehicle; then addVehicleBlock; else editVehicleBlock"></div>
   </md-card-content>
 </md-card>
+<md-spinner strokeWidth="8" color="accent" *ngIf="!viewReady" style="margin: 50px 100px"></md-spinner>
 
 <!-- Шаблоны для содержимого карточки: -->
 
 <ng-template #editVehicleBlock>
-  <div *ngIf="viewReady">
     <div class="row">
       <md-input-container class="full-width">
         <input mdInput [(ngModel)]="vehicle.name">
@@ -26,11 +26,9 @@
       <button (click)="updateVehicle()">Back</button>
       <button class="abort" (click)="deleteVehicle()">Remove</button>
     </p>
-  </div>
 </ng-template>
 
 <ng-template #addVehicleBlock>
-  <div *ngIf="viewReady">
     <div class="row">
       <md-input-container class="full-width">
         <input mdInput [(ngModel)]="vehicle.name">
@@ -41,5 +39,4 @@
       <button (click)="navToVehicleList(true)">Cancel</button>
       <button class="apply" (click)="createVehicle()" [disabled]="!vehicle.name || vehicle.name.length == 0">Save</button>
     </p>
-  </div>
 </ng-template>

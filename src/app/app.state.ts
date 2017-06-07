@@ -1,44 +1,34 @@
 
 import { Vehicle } from "./vehicle/vehicle.service";
 import { Character } from "./character/character.service";
-import { vehiclesReducer } from "./vehicle/vehicle.reducer";
-import { characterReducer } from "./character/character.reducer";
+import { vehiclesReducer, characterReducer, statusReducer, initReducer } from "app/store/reducers";
 import * as store from '@ngrx/store';
-export * from '@ngrx/store';
-/**
- * The compose function is one of our most handy tools. In basic terms, you give
- * it any number of functions and it returns a function. This new function
- * takes a value and chains it through every composed function, returning
- * the output.
- *
- * More: https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch5.html
- */
 import { compose } from '@ngrx/core/compose';
-/**
- * storeFreeze prevents state from being mutated. When mutation occurs, an
- * exception will be thrown. This is useful during development mode to
- * ensure that none of the reducers accidentally mutates the state.
- */
-//import { storeFreeze } from 'ngrx-store-freeze'; конфликт версий
-/**
- * combineReducers is another useful metareducer that takes a map of reducer
- * functions and creates a new reducer that gathers the values
- * of each reducer and stores them using the reducer's key. Think of it
- * almost like a database, where every reducer is a table in the db.
- *
- * More: https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch
- */
-import { combineReducers } from '@ngrx/store';
+import { combineReducers} from '@ngrx/store';
+
+export * from '@ngrx/store';
 
 export interface AppState {
   vehicles: Vehicle[];
   characters: Character[];
+  appStatus: Status;
+  initilized: Init;
 }
 
-// export function reducer(state: any, action: any){
-//     return combineReducers({
-//         vehicles: vehiclesReducer,
-//         characters: characterReducer
-//         /* more reducers here... */
-//     })
-// }
+export interface Status {
+  level: string,
+  text: string
+}
+
+export interface Init {
+  characters: boolean,
+  vehicles: boolean,
+  app: boolean
+}
+
+export default compose(combineReducers)({
+  vehicles : vehiclesReducer,
+  characters: characterReducer,
+  appStatus: statusReducer,
+  initilized: initReducer
+});

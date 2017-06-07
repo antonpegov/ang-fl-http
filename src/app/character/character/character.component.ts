@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from "@angular/router";
 import { CharacterService, Character } from "../character.service";
-import { Store } from "app/app.state";
-import { INIT_CHARACTERS, ADD_CHARACTER, REMOVE_CHARACTER, UPDATE_CHARACTER  } from "../character.reducer";
-import { MdSelect, MdOption, MdCard, MdIcon, MdSlideToggle } from "@angular/material";
+import { Store, AppState } from "app/app.state";
+import { CharacterActions } from "app/store/actions";
+import { MdSelect, MdOption, MdCard, MdIcon, MdSlideToggle, MdSpinner } from "@angular/material";
 import { Observable } from "rxjs/Observable";
 
 @Component({
@@ -29,9 +29,10 @@ export class CharacterComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private _characterService: CharacterService,
-    private _store: Store<Character[]>
+    private _store: Store<AppState>,
+    private _characterActions: CharacterActions
   ) {
-    this.characters = _store.select('characters');
+    this.characters = _store.select(s => s.characters);
   }
 
   ngOnInit() {
@@ -45,14 +46,14 @@ export class CharacterComponent implements OnInit {
         // Заблокировать вью, загрузить данные и выбрать из них подходящий персонаж
         this.viewReady = false;
         this._characterService.getCharacters().subscribe(characters => {
-          this._store.dispatch({type: INIT_CHARACTERS, payload: characters});
+          this._store.dispatch(this._characterActions.initCharactersSucess(characters));
           this.characters.subscribe(characters => {
             this.character = characters.find(item => item.id === this.id);
             this.viewReady = true;
           })
         });
       }
-    } else {debugger
+    } else {
       // id пустой, нужно создать новый объект  
       if(this._characterService.dataIsLoaded){
         this.character = new Character(this.getLastCharacterId()+1, '');
@@ -64,15 +65,15 @@ export class CharacterComponent implements OnInit {
   }
 
   private createCharacter() : void {
-    this._store.dispatch({type: ADD_CHARACTER, payload: this.character});
+    this._store.dispatch(this._characterActions.addCharacter(this.character));
     this.navToCharacterList();
   }
   private updateCharacter(): void {
-    this._store.dispatch({type: UPDATE_CHARACTER, payload: this.character});
+    this._store.dispatch(this._characterActions.updateCharacter(this.character));
     this.navToCharacterList();
   }
   private deleteCharacter(): void {
-    this._store.dispatch({type: REMOVE_CHARACTER, payload: this.character});
+    this._store.dispatch(this._characterActions.removeCharacter(this.character));
     this.navToCharacterList(true);
   }
   private getCharacter(id: number): Observable<Character> {
@@ -87,3 +88,4 @@ export class CharacterComponent implements OnInit {
     this._router.navigate(['/characters', { id: toRoot ? null : this.id}]);
   }
 }
+

@@ -6,6 +6,7 @@ import { CharacterComponent } from './character/character.component';
 import { CharacterListComponent } from './character-list/character-list.component';
 import { CharacterService} from "app/character/character.service";
 import { SharedModule } from "../shared/shared.module";
+import { CharacterActions } from "app/store/actions";
 
 @NgModule({
   imports: [
@@ -14,7 +15,10 @@ import { SharedModule } from "../shared/shared.module";
     CommonModule,
     CharacterRoutingModule,
   ],
-  providers: [ CharacterService ],
+  providers: [ 
+    CharacterService,
+    CharacterActions 
+  ],
   declarations: [ CharacterListComponent, CharacterComponent ],
   exports: [
     CharacterListComponent

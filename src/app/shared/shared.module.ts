@@ -8,7 +8,10 @@ import {
   MdCheckboxModule, 
   MdCardModule, 
   MdInputModule,
-  MdSlideToggleModule } from "@angular/material";
+  MdSlideToggleModule,
+  MdProgressSpinnerModule
+  //MdSnackBarModule 
+} from "@angular/material";
 
 @NgModule({
   imports: [
@@ -20,7 +23,8 @@ import {
     MdOptionModule,
     MdCardModule,
     MdInputModule,
-    MdSlideToggleModule
+    MdSlideToggleModule,
+    MdProgressSpinnerModule
   ],
   exports:[
     CommonModule,
@@ -31,7 +35,8 @@ import {
     MdOptionModule,
     MdCardModule,
     MdInputModule,
-    MdSlideToggleModule
+    MdSlideToggleModule,
+    MdProgressSpinnerModule
   ],
   declarations: []
 })

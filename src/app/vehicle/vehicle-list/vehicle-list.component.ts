@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Vehicle, VehicleService} from '../vehicle.service';
-import { INIT_VEHICLES, ADD_VEHICLE, REMOVE_VEHICLE, UPDATE_VEHICLE } from '../vehicle.reducer';
+import { VehicleActions } from "app/store/actions";
 import { VehicleComponent } from '../vehicle/vehicle.component';
 import { Router, ActivatedRoute, Params } from "@angular/router";
-import { Store } from "@ngrx/store";
-import { AppState } from "../../app.state";
+import { AppState, Store } from "app/app.state";
+
+import { AngularFireAuth, AngularFireAuthProvider,FirebaseAuthStateObservable } from "angularfire2/auth";
 
 @Component({
   selector: 'app-vehicle-list',
@@ -14,43 +15,36 @@ import { AppState } from "../../app.state";
 })
 export class VehicleListComponent implements OnInit {
   
-  private errorMessage: "not Initilized";
   private selectedVehicle: Vehicle;
   private selectedId: number;
-  private vehicles: Observable<Vehicle[]>;
+  public vehicles$: Observable<Vehicle[]>;
 
   constructor(
-    private _vehicleService: VehicleService,
+    //private _vehicleService: VehicleService,
     private _router: Router,
     private _route: ActivatedRoute,
-    private _store: Store<AppState>
+    private _store: Store<AppState>,
+    private _vehicleActions: VehicleActions,
+    //private _db: AngularFireDatabase,
+    private _auth: AngularFireAuth
   ) {
-    this.vehicles = _store.select('vehicles');
+    this.vehicles$ = _store.select(s => s.vehicles); // Подключение к разделу хранилища
   }
 
   ngOnInit() {
-    // Выделение персонажа по переданному id
+      // Выделение персонажа по переданному id
     this._route.params
       .subscribe((params: Params) => this.selectedId = Number(params["id"]))
-    // Если не было загрузки данных, загрузить их и поместить в хранилище
-    if(!this._vehicleService.dataIsLoaded){
-      this._vehicleService.getVehicles().subscribe(vehicles =>
-        this._store.dispatch({type: INIT_VEHICLES, payload: vehicles})
-      )
-    }
-    this.errorMessage = null;
   }
   
-  newVehicle(){
+  public newVehicle(){
     this._router.navigate(['/vehicle'])
   }
-
-  selectVehicle(vehicle:Vehicle){
+  public selectVehicle(vehicle:Vehicle){
     this.selectedVehicle = vehicle;
     this._router.navigate(['/vehicle', vehicle.id])
   }
-
-  isSelected(vehicle: Vehicle) {
+  public isSelected(vehicle: Vehicle) {
     return vehicle.id === this.selectedId; 
   }
 
